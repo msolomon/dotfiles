@@ -1,4 +1,7 @@
 
 .dropbox
+.matplotlib/fontList.cache
 
 .lolcommits/
+.matplotlib/tex.cache/
+.ssh/
