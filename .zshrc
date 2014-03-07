@@ -50,8 +50,8 @@ function gdeletemerged() {
 }
 
 function gsub() {
-    git submodule sync --recursive
-    git submodule update --init --recursive
+    print_and_eval "git submodule sync --recursive"
+    print_and_eval "git submodule update --init --recursive"
 }
 
 ## Search
