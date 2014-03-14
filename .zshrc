@@ -2,13 +2,13 @@
 ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load (~/.oh-my-zsh/themes/)
-ZSH_THEME="robbyrussell"
+ZSH_THEME="mike"
 
 export ZSH_TMUX_AUTOCONNECT=true
 COMPLETION_WAITING_DOTS="true"
 
 # oh-my-zsh plugins can be found in ~/.oh-my-zsh/plugins/* and ~/.oh-my-zsh/custom/plugins/
-plugins=(git brew osx python sublime autojump virtulenvwrapper tmux supervisor pip osx npm coffee rails ruby rvm zsh-syntax-highlighting)
+plugins=(git brew osx python sublime autojump virtulenvwrapper tmux supervisor pip osx npm coffee rails ruby rvm emoji-clock z zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -56,9 +56,30 @@ function gsub() {
 
 ## Search
 
-function f() { print_and_eval "find . -iname \"*$@*\"" }
-function fr() { print_and_eval "find -E . -iregex $@" }
-function r() { print_and_eval "grep \"$@\" -R ." }
+function f() {
+    sans_first=${@:2}
+    print_and_eval "find . -iname \"*$1*\" ${sans_first[*]}"
+}
+function fr() { print_and_eval "find -E . -iregex $*" }
+function r() {
+    sans_first=${@:2}
+    print_and_eval "grep '$1' ${sans_first[*]} -R ."
+}
+
+function rrr() {
+    grep "$1" ${@:2} -R .
+}
+
+function fff() {
+    find . -iname "*$1*" ${@:2}
+}
+
+
+## Fun
+
+function giffy() {
+    ffmpeg -i "$1" -vf scale="'if(gt(a,1),640,-1)':'if(lt(a,1),-1,640)'" -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=10 --crop-transparency --loop -f > "$1".gif
+}
 
 ## Android
 export ANDROID_HOME="/Applications/Android Studio.app/sdk"
